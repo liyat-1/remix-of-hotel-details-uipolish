@@ -66,10 +66,10 @@ export function AppSidebar({ active = "Hotel details" }: { active?: string }) {
         collapsed ? "w-[86px]" : "w-[248px]",
       )}
     >
-      <div className="sticky top-3 flex h-[calc(100vh-24px)] flex-col rounded-3xl border border-sidebar-border bg-sidebar shadow-[var(--shadow-card)]">
+      <div className="sticky top-3 flex h-[calc(100vh-24px)] flex-col rounded-xl border border-sidebar-border bg-sidebar shadow-[var(--shadow-card)]">
         <div className={cn("flex h-[64px] items-center", collapsed ? "justify-center px-3" : "px-4")}>
           <div className="flex min-w-0 flex-1 items-center gap-3 overflow-hidden">
-            <span className="flex size-9 shrink-0 items-center justify-center rounded-2xl bg-primary text-[13px] font-extrabold text-primary-foreground">
+            <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary text-[13px] font-extrabold text-primary-foreground">
               M
             </span>
             {!collapsed ? (
@@ -124,7 +124,7 @@ export function AppSidebar({ active = "Hotel details" }: { active?: string }) {
                         aria-label={collapsed ? it.label : undefined}
                         title={collapsed ? it.label : undefined}
                         className={cn(
-                          "group relative flex w-full items-center rounded-2xl text-left text-[12.5px] transition-all duration-200",
+                          "group relative flex w-full items-center rounded-lg text-left text-[12.5px] transition-all duration-200",
                           collapsed ? "h-10 justify-center px-0" : "gap-3 px-3 py-2.5",
                           isActive
                             ? "bg-primary font-semibold text-primary-foreground shadow-[var(--shadow-card)]"
@@ -141,7 +141,7 @@ export function AppSidebar({ active = "Hotel details" }: { active?: string }) {
             </div>
           ))}
         </nav>
-        <div className={cn("m-3 rounded-2xl bg-surface-muted p-2", collapsed ? "flex justify-center" : "")}> 
+        <div className={cn("m-3 rounded-lg bg-surface-muted p-2", collapsed ? "flex justify-center" : "")}> 
           <div className={cn("flex items-center gap-3", collapsed ? "justify-center" : "px-1 py-1")}>
             <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-lime text-[11px] font-bold text-lime-foreground">LT</span>
 

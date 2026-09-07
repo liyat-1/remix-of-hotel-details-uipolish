@@ -156,7 +156,7 @@ function Row({
 
 function Surface({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <div className={cn("rounded-3xl border border-border/70 bg-surface p-5 shadow-[var(--shadow-card)] transition-shadow duration-300 hover:shadow-[var(--shadow-float)]", className)}>
+    <div className={cn("rounded-xl border border-border/70 bg-surface p-5 shadow-[var(--shadow-card)] transition-shadow duration-300 hover:shadow-[var(--shadow-float)]", className)}>
       {children}
     </div>
   );
@@ -171,21 +171,21 @@ function Muted({ children }: { children: ReactNode }) {
 type Tint = "sky" | "violet" | "peach" | "mint" | "sand" | "lime";
 
 const tintBg: Record<Tint, string> = {
-  sky: "bg-tint-sky",
-  violet: "bg-tint-violet",
-  peach: "bg-tint-peach",
-  mint: "bg-tint-mint",
-  sand: "bg-tint-sand",
-  lime: "bg-lime/35",
+  sky: "bg-surface",
+  violet: "bg-surface",
+  peach: "bg-surface",
+  mint: "bg-surface",
+  sand: "bg-surface",
+  lime: "bg-surface",
 };
 
 const tintInk: Record<Tint, string> = {
-  sky: "text-ink-sky",
-  violet: "text-ink-violet",
-  peach: "text-ink-peach",
-  mint: "text-ink-mint",
-  sand: "text-foreground",
-  lime: "text-lime-foreground",
+  sky: "text-primary",
+  violet: "text-primary",
+  peach: "text-primary",
+  mint: "text-primary",
+  sand: "text-primary",
+  lime: "text-primary",
 };
 
 function ActionTile({
@@ -205,30 +205,29 @@ function ActionTile({
     <button
       type="button"
       className={cn(
-        "group flex w-full items-center gap-3 rounded-3xl border border-border/50 p-3.5 text-left transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[var(--shadow-float)]",
-        tintBg[tint],
+        "group flex h-full w-full items-center gap-3 rounded-xl border border-border bg-surface p-3 text-left shadow-[var(--shadow-card)] transition-colors duration-200 hover:border-primary/40 hover:bg-accent/60",
         className,
       )}
       {...rest}
     >
       <span
         className={cn(
-          "flex size-11 shrink-0 items-center justify-center rounded-2xl bg-surface shadow-[var(--shadow-card)]",
+          "flex size-9 shrink-0 items-center justify-center rounded-lg bg-accent",
           tintInk[tint],
         )}
       >
-        <Icon className="size-5" />
+        <Icon className="size-4.5" />
       </span>
       <span className="min-w-0 flex-1">
-        <span className="block text-[13.5px] font-bold text-foreground">{title}</span>
-        <span className="block truncate text-[11.5px] text-foreground/60">{desc}</span>
+        <span className="block text-[13px] font-semibold text-foreground">{title}</span>
+        <span className="block truncate text-[11.5px] text-muted-foreground">{desc}</span>
       </span>
-      <ChevronRight className="size-4 shrink-0 text-foreground/40 transition-transform group-hover:translate-x-0.5" />
+      <ChevronRight className="size-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
     </button>
   );
 }
 
-/** Coloured card with a chip-icon header. */
+/** Flat white card with an icon header row. */
 function CardShell({
   icon: Icon,
   title,
@@ -249,33 +248,30 @@ function CardShell({
   return (
     <div
       className={cn(
-        "flex flex-col overflow-hidden rounded-[28px] border border-border/50 p-2 transition-shadow duration-300 hover:shadow-[var(--shadow-float)]",
-        tintBg[tint],
+        "flex h-full flex-col overflow-hidden rounded-xl border border-border bg-surface shadow-[var(--shadow-card)]",
         className,
       )}
     >
-      <div className="flex items-center gap-3 px-3 py-2.5">
+      <div className="flex items-center gap-3 border-b border-border px-4 py-3">
         {Icon ? (
           <span
             className={cn(
-              "flex size-9 shrink-0 items-center justify-center rounded-2xl bg-surface shadow-[var(--shadow-card)]",
+              "flex size-8 shrink-0 items-center justify-center rounded-lg bg-accent",
               tintInk[tint],
             )}
           >
-            <Icon className="size-4.5" />
+            <Icon className="size-4" />
           </span>
         ) : null}
         <div className="min-w-0 flex-1">
-          <div className="truncate text-[14px] font-bold text-foreground">{title}</div>
+          <div className="truncate text-[13.5px] font-semibold text-foreground">{title}</div>
           {subtitle ? (
-            <div className="truncate text-[11.5px] text-foreground/55">{subtitle}</div>
+            <div className="truncate text-[11.5px] text-muted-foreground">{subtitle}</div>
           ) : null}
         </div>
         {action}
       </div>
-      <div className="flex min-h-0 flex-1 flex-col rounded-[22px] bg-surface p-4 shadow-[var(--shadow-card)]">
-        {children}
-      </div>
+      <div className="flex min-h-0 flex-1 flex-col p-4">{children}</div>
     </div>
   );
 }
@@ -292,21 +288,20 @@ function PillRow({
   return (
     <div
       className={cn(
-        "flex items-center justify-between gap-4 rounded-2xl bg-surface-muted px-3.5 py-2.5",
+        "flex items-center justify-between gap-4 rounded-lg border border-border/70 bg-surface-muted px-3 py-2",
         className,
       )}
     >
-      <span className="min-w-0 truncate text-[12.5px] font-medium text-muted-foreground">
-        {label}
-      </span>
-      <span className="flex shrink-0 items-center gap-1.5 text-[13px] font-semibold text-foreground">
+      <span className="min-w-0 truncate text-[12.5px] text-muted-foreground">{label}</span>
+      <span className="flex shrink-0 items-center gap-1.5 text-[12.5px] font-semibold text-foreground">
         {value}
       </span>
     </div>
   );
 }
 
-const avatarTints: Tint[] = ["sky", "violet", "peach", "mint", "lime"];
+
+
 
 function initials(name: string) {
   return name
@@ -317,21 +312,17 @@ function initials(name: string) {
     .join("");
 }
 
-function Avatar({ name, index, size = 44 }: { name: string; index: number; size?: number }) {
-  const tint = avatarTints[index % avatarTints.length] as Tint;
+function Avatar({ name, size = 36 }: { name: string; index?: number; size?: number }) {
   return (
     <span
       style={{ width: size, height: size }}
-      className={cn(
-        "flex shrink-0 items-center justify-center rounded-2xl text-[13px] font-bold",
-        tintBg[tint],
-        tintInk[tint],
-      )}
+      className="flex shrink-0 items-center justify-center rounded-lg bg-accent text-[12px] font-semibold text-primary"
     >
       {initials(name)}
     </span>
   );
 }
+
 
 function countBy(groups: { features: { status: Health }[] }[]) {
   const c = { healthy: 0, warning: 0, failed: 0, neutral: 0 };
@@ -637,7 +628,7 @@ function HotelWorkspace() {
 
       <div className="min-w-0 flex-1">
         <header className="sticky top-0 z-40 flex h-[68px] items-center gap-3 bg-background/85 px-4 backdrop-blur-xl md:px-6">
-          <div className="hidden h-10 w-[420px] items-center gap-2 rounded-full border border-border/70 bg-surface px-4 text-muted-foreground shadow-[var(--shadow-card)] md:flex">
+          <div className="hidden h-10 w-[420px] items-center gap-2 rounded-lg border border-border/70 bg-surface px-4 text-muted-foreground shadow-[var(--shadow-card)] md:flex">
             <Search className="size-4" />
             <span className="text-[12.5px]">Search hotels, IDs, or anything…</span>
           </div>
@@ -665,7 +656,7 @@ function HotelWorkspace() {
             scrolled ? "h-16 opacity-100" : "pointer-events-none h-0 overflow-hidden opacity-0",
           )}
         >
-          <div className="mx-auto flex h-14 max-w-[1540px] items-center gap-3 rounded-full border border-border/70 bg-surface/90 px-3 shadow-[var(--shadow-card)] backdrop-blur-xl">
+          <div className="mx-auto flex h-14 max-w-[1540px] items-center gap-3 rounded-xl border border-border/70 bg-surface/90 px-3 shadow-[var(--shadow-card)] backdrop-blur-xl">
             <img
               src={propertyImage}
               alt=""
@@ -689,7 +680,7 @@ function HotelWorkspace() {
 
            <div className="mx-auto max-w-[1540px] px-4 pt-3 pb-12 md:px-5">
           {/* account status controller */}
-          <div className="mb-3 flex flex-wrap items-center gap-2 rounded-full border border-border/70 bg-surface p-1.5 shadow-[var(--shadow-card)]">
+          <div className="mb-3 flex flex-wrap items-center gap-2 rounded-lg border border-border/70 bg-surface p-1.5 shadow-[var(--shadow-card)]">
             <span className="px-3 text-[10.5px] font-bold tracking-[0.14em] text-muted-foreground uppercase">
               Account status
             </span>
@@ -699,7 +690,7 @@ function HotelWorkspace() {
                 type="button"
                 onClick={() => setScenario(s.id)}
                 className={cn(
-                  "rounded-full px-4 py-1.5 text-[12.5px] font-semibold transition-all duration-200",
+                  "rounded-md px-4 py-1.5 text-[12.5px] font-semibold transition-all duration-200",
                   scenario === s.id
                     ? "bg-primary text-primary-foreground shadow-[var(--shadow-card)]"
                     : "text-muted-foreground hover:bg-accent hover:text-foreground",
@@ -712,8 +703,8 @@ function HotelWorkspace() {
 
 
           {/* ---------------- hotel header ---------------- */}
-          <header className="grid min-h-[280px] overflow-hidden rounded-[28px] bg-foreground p-2 shadow-[var(--shadow-float)] lg:grid-cols-[38%_62%]">
-            <div className="relative min-h-[240px] overflow-hidden rounded-[22px]">
+          <header className="grid min-h-[280px] overflow-hidden rounded-xl bg-foreground p-2 shadow-[var(--shadow-float)] lg:grid-cols-[38%_62%]">
+            <div className="relative min-h-[240px] overflow-hidden rounded-lg">
               <img
                 src={propertyImage}
                 alt={`Exterior of ${hotel.name}`}
@@ -724,10 +715,10 @@ function HotelWorkspace() {
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-foreground/60 via-transparent to-transparent" />
               <div className="absolute inset-x-4 bottom-4 flex items-center justify-between text-primary-foreground">
                 <span className="rounded-full bg-foreground/60 px-3 py-1.5 text-[11px] font-medium backdrop-blur-md">1 / 5</span>
-                <Button size="sm" className="h-9 rounded-full bg-surface px-4 text-[12px] font-semibold text-foreground hover:bg-surface/90">View gallery</Button>
+                <Button size="sm" className="h-9 rounded-md bg-surface px-4 text-[12px] font-semibold text-foreground hover:bg-surface/90">View gallery</Button>
               </div>
             </div>
-            <div className="relative flex min-h-[240px] flex-col justify-between overflow-hidden rounded-[22px] p-6 text-primary-foreground md:p-7">
+            <div className="relative flex min-h-[240px] flex-col justify-between overflow-hidden rounded-lg p-6 text-primary-foreground md:p-7">
               <img src={propertyImage} alt="" className="absolute inset-0 h-full w-full scale-110 object-cover opacity-30 blur-[2px]" />
               <div className="absolute inset-0 bg-foreground/85" />
               <div className="relative pt-12 lg:pt-0">
@@ -746,7 +737,7 @@ function HotelWorkspace() {
                       { Icon: BedDouble, text: `${hotel.identity.rooms} rooms` },
                       { Icon: MapPin, text: location ?? "—" },
                     ].map(({ Icon, text }) => (
-                      <span key={text} className="flex items-center gap-1.5 rounded-full border border-primary-foreground/15 bg-primary-foreground/5 px-3 py-1.5 text-[11.5px] font-medium text-primary-foreground/90">
+                      <span key={text} className="flex items-center gap-1.5 rounded-md border border-primary-foreground/15 bg-primary-foreground/5 px-3 py-1.5 text-[11.5px] font-medium text-primary-foreground/90">
                         <Icon className="size-3.5" />
                         {text}
                       </span>
@@ -764,7 +755,7 @@ function HotelWorkspace() {
                     </span>
                   ))}
                 </div>
-                <span className="ml-auto rounded-full bg-lime px-4 py-2 text-[11.5px] font-bold text-lime-foreground"><span className="mr-1.5 inline-block size-2 rounded-full bg-lime-foreground/70" />{lifecycle.sub}</span>
+                <span className="ml-auto rounded-md bg-lime px-4 py-2 text-[11.5px] font-bold text-lime-foreground"><span className="mr-1.5 inline-block size-2 rounded-full bg-lime-foreground/70" />{lifecycle.sub}</span>
                 <a
                   href={hotel.website}
                   target="_blank"
@@ -781,7 +772,7 @@ function HotelWorkspace() {
           {/* ---------------- in-page nav ---------------- */}
           <nav
             className={cn(
-               "sticky z-20 mt-3 mb-1 rounded-full border border-border/70 bg-surface/90 p-1.5 shadow-[var(--shadow-card)] backdrop-blur-xl",
+               "sticky z-20 mt-3 mb-1 rounded-lg border border-border/70 bg-surface/90 p-1.5 shadow-[var(--shadow-card)] backdrop-blur-xl",
               scrolled ? "top-[136px]" : "top-[78px]",
             )}
           >
@@ -792,7 +783,7 @@ function HotelWorkspace() {
                   type="button"
                   onClick={() => goTo(s.id)}
                   className={cn(
-                    "rounded-full px-4 py-2 text-[13px] font-semibold transition-all duration-200",
+                    "rounded-md px-4 py-2 text-[13px] font-semibold transition-all duration-200",
                     active === s.id
                       ? "bg-primary text-primary-foreground shadow-[var(--shadow-card)]"
                       : "text-muted-foreground hover:bg-accent hover:text-foreground",
@@ -825,7 +816,7 @@ function HotelWorkspace() {
                     onClick={getOtp}
                   />
                 </PopoverTrigger>
-                <PopoverContent align="start" className="w-60 rounded-2xl">
+                <PopoverContent align="start" className="w-60 rounded-lg">
                   <div className="text-[11px] font-semibold text-muted-foreground uppercase">Last OTP</div>
                   <div className="mt-1.5 flex items-center justify-between gap-3">
                     <span className="font-mono text-[22px] font-semibold text-foreground">{otp ?? "······"}</span>
@@ -843,7 +834,7 @@ function HotelWorkspace() {
                     desc="Run a current health check"
                   />
                 </PopoverTrigger>
-                <PopoverContent align="start" className="w-72 rounded-2xl">
+                <PopoverContent align="start" className="w-72 rounded-lg">
                   {checking ? (
                     <div className="flex items-center gap-2 text-[13px] text-muted-foreground">
                       <Loader2 className="size-4 animate-spin" /> Checking hotel status…
@@ -883,7 +874,7 @@ function HotelWorkspace() {
               ) : null
             }
           >
-            <div className="grid items-start gap-3 xl:grid-cols-3">
+            <div className="grid gap-3 xl:grid-cols-3">
               {/* hotel health — donut on top, list below */}
               <CardShell
                 icon={Activity}
@@ -896,9 +887,9 @@ function HotelWorkspace() {
                   </span>
                 }
               >
-                <div className="flex flex-col items-center gap-5 py-1">
+                <div className="flex h-full flex-col items-center gap-4">
                   <div
-                    className="grid size-[132px] shrink-0 place-items-center rounded-full p-3"
+                    className="grid size-[112px] shrink-0 place-items-center rounded-full p-3"
                     style={{
                       background: `conic-gradient(var(--color-success) 0 ${
                         (hotel.health.healthy / Math.max(hotel.health.total, 1)) * 100
@@ -933,7 +924,7 @@ function HotelWorkspace() {
                       <span
                         key={key}
                         className={cn(
-                          "inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[12px] font-bold",
+                          "inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-[12px] font-bold",
                           cls,
                         )}
                       >
@@ -958,7 +949,8 @@ function HotelWorkspace() {
 
                   <Button
                     variant="outline"
-                    className="w-full rounded-2xl"
+                    className="mt-auto w-full rounded-lg"
+
                     onClick={() => setDetail("features")}
                   >
                     View all feature statuses
@@ -968,7 +960,7 @@ function HotelWorkspace() {
               </CardShell>
 
               {/* connections + onboarding */}
-              <div className="grid items-start gap-3 lg:grid-cols-2 xl:contents">
+              <div className="grid gap-3 lg:grid-cols-2 xl:contents">
 
                 <CardShell
                   icon={Plug}
@@ -1011,7 +1003,7 @@ function HotelWorkspace() {
                     />
 
                     {hotel.sync.beSync.status !== "healthy" ? (
-                      <div className="rounded-2xl bg-warning-soft p-4">
+                      <div className="rounded-lg bg-warning-soft p-4">
                         <div className="flex items-center gap-2 text-[13.5px] font-bold text-warning">
                           <AlertTriangle className="size-4 shrink-0" />
                           BE sync {hotel.sync.beSync.label.toLowerCase()}
@@ -1034,7 +1026,7 @@ function HotelWorkspace() {
                               Check status
                             </Button>
                           </PopoverTrigger>
-                          <PopoverContent align="start" className="w-72 rounded-2xl">
+                          <PopoverContent align="start" className="w-72 rounded-lg">
                             {checking ? (
                               <div className="flex items-center gap-2 text-[13px] text-muted-foreground">
                                 <Loader2 className="size-4 animate-spin" /> Checking hotel status…
@@ -1054,7 +1046,7 @@ function HotelWorkspace() {
                     <div className="mt-auto grid gap-2 pt-2 sm:grid-cols-2">
                       <Popover onOpenChange={(o) => o && runStatusCheck()}>
                         <PopoverTrigger asChild>
-                          <Button className="w-full rounded-2xl">
+                          <Button className="w-full rounded-lg">
                             {checking ? (
                               <Loader2 className="size-4 animate-spin" />
                             ) : (
@@ -1063,7 +1055,7 @@ function HotelWorkspace() {
                             Check hotel status
                           </Button>
                         </PopoverTrigger>
-                        <PopoverContent align="start" className="w-72 rounded-2xl">
+                        <PopoverContent align="start" className="w-72 rounded-lg">
                           {checking ? (
                             <div className="flex items-center gap-2 text-[13px] text-muted-foreground">
                               <Loader2 className="size-4 animate-spin" /> Checking hotel status…
@@ -1078,7 +1070,7 @@ function HotelWorkspace() {
                       </Popover>
                       <Button
                         variant="outline"
-                        className="w-full rounded-2xl"
+                        className="w-full rounded-lg"
                         disabled={!hotel.sync.jobs.length}
                         onClick={() => setDetail("jobs")}
                       >
@@ -1097,7 +1089,7 @@ function HotelWorkspace() {
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="rounded-full"
+                      className="rounded-md"
                       onClick={() => setDetail("onboarding")}
                     >
                       View all
@@ -1134,7 +1126,36 @@ function HotelWorkspace() {
                           }
                         />
                       ))}
+
+                    {(() => {
+                      const steps =
+                        hotel.onboarding?.mandatory ??
+                        [
+                          { label: "Campaign registry", state: "complete" as const },
+                          { label: "PMS sync", state: "action" as const },
+                          { label: "BE sync", state: "action" as const },
+                          { label: "Proxy", state: "complete" as const },
+                        ];
+                      const done = steps.filter((m) => m.state === "complete").length;
+
+                      const total = steps.length || 4;
+                      const pct = Math.round((done / total) * 100);
+                      return (
+                        <div className="mt-auto pt-3">
+                          <div className="mb-1.5 flex items-center justify-between text-[11.5px] font-medium text-muted-foreground">
+                            <span>Setup progress</span>
+                            <span className="font-semibold text-foreground">
+                              {done}/{total} complete
+                            </span>
+                          </div>
+                          <div className="h-1.5 w-full overflow-hidden rounded-full bg-accent">
+                            <div className="h-full rounded-full bg-primary" style={{ width: `${pct}%` }} />
+                          </div>
+                        </div>
+                      );
+                    })()}
                   </div>
+
                 </CardShell>
               </div>
             </div>
@@ -1148,7 +1169,7 @@ function HotelWorkspace() {
               title="Property identity"
               subtitle={`${hotel.identity.parentChain} · ${hotel.identity.rooms} rooms`}
               action={
-                <Button size="sm" className="rounded-full" onClick={editHotel}>
+                <Button size="sm" className="rounded-md" onClick={editHotel}>
                   <Pencil className="size-3.5" /> Edit
                 </Button>
               }
@@ -1209,7 +1230,7 @@ function HotelWorkspace() {
                 title="Account team"
                 subtitle="Who looks after this property"
                 action={
-                  <Button size="sm" className="rounded-full" onClick={editTeam}>
+                  <Button size="sm" className="rounded-md" onClick={editTeam}>
                     <Pencil className="size-3.5" /> Edit
                   </Button>
                 }
@@ -1222,7 +1243,7 @@ function HotelWorkspace() {
                   ].map((p, i) => (
                     <div
                       key={p.role}
-                      className="group flex items-center gap-3 rounded-2xl bg-surface-muted p-2.5 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[var(--shadow-card)]"
+                      className="group flex items-center gap-3 rounded-lg bg-surface-muted p-2.5 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[var(--shadow-card)]"
                     >
                       <Avatar name={p.name} index={i} />
                       <div className="min-w-0 flex-1">
@@ -1246,7 +1267,7 @@ function HotelWorkspace() {
                   <Button
                     size="sm"
                     variant="ghost"
-                    className="rounded-full"
+                    className="rounded-md"
                     onClick={() =>
                       openEdit("hotel contact", [
                         { label: "Name", value: "" },
@@ -1260,7 +1281,7 @@ function HotelWorkspace() {
                 }
               >
                 {hotel.people.emails.length === 0 ? (
-                  <div className="rounded-2xl border border-dashed border-border px-4 py-8 text-center">
+                  <div className="rounded-lg border border-dashed border-border px-4 py-8 text-center">
                     <Muted>No hotel emails added yet.</Muted>
                   </div>
                 ) : (
@@ -1268,7 +1289,7 @@ function HotelWorkspace() {
                     {hotel.people.emails.map((e, i) => (
                       <div
                         key={e.email}
-                        className="flex items-center gap-3 rounded-2xl bg-surface-muted p-2.5 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[var(--shadow-card)]"
+                        className="flex items-center gap-3 rounded-lg bg-surface-muted p-2.5 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[var(--shadow-card)]"
                       >
                         <Avatar name={e.name} index={i + 2} />
                         <div className="min-w-0 flex-1">
@@ -1301,7 +1322,7 @@ function HotelWorkspace() {
                 title="Legal"
                 subtitle={hotel.legal?.legalName ?? "Not configured"}
                 action={
-                  <Button size="sm" className="rounded-full" onClick={editLegal}>
+                  <Button size="sm" className="rounded-md" onClick={editLegal}>
                     <Pencil className="size-3.5" /> Edit
                   </Button>
                 }
@@ -1337,10 +1358,10 @@ function HotelWorkspace() {
                     </div>
                   </div>
                 ) : (
-                  <div className="rounded-2xl border border-dashed border-border px-4 py-8 text-center">
+                  <div className="rounded-lg border border-dashed border-border px-4 py-8 text-center">
                     <Muted>Legal information not configured.</Muted>
                     <div className="mt-2">
-                      <Button variant="outline" size="sm" className="rounded-full" onClick={editLegal}>
+                      <Button variant="outline" size="sm" className="rounded-md" onClick={editLegal}>
                         Add legal details
                       </Button>
                     </div>
@@ -1355,7 +1376,7 @@ function HotelWorkspace() {
                 subtitle="Addresses, plan and payment settings"
                 action={
                   hotel.legal ? (
-                    <Button size="sm" className="rounded-full" onClick={editBilling}>
+                    <Button size="sm" className="rounded-md" onClick={editBilling}>
                       <Pencil className="size-3.5" /> Edit
                     </Button>
                   ) : null
@@ -1364,7 +1385,7 @@ function HotelWorkspace() {
                 <div className="grid gap-2">
                   {hotel.legal ? (
                     <>
-                      <div className="rounded-2xl bg-surface-muted px-3.5 py-2.5">
+                      <div className="rounded-lg bg-surface-muted px-3.5 py-2.5">
                         <div className="text-[11px] tracking-[0.1em] text-muted-foreground uppercase">
                           Billing address
                         </div>
@@ -1372,7 +1393,7 @@ function HotelWorkspace() {
                           {hotel.legal.billingAddress}
                         </div>
                       </div>
-                      <div className="rounded-2xl bg-surface-muted px-3.5 py-2.5">
+                      <div className="rounded-lg bg-surface-muted px-3.5 py-2.5">
                         <div className="text-[11px] tracking-[0.1em] text-muted-foreground uppercase">
                           Invoice address
                         </div>
@@ -1405,7 +1426,7 @@ function HotelWorkspace() {
                             s.rows.map((r) => ({ label: r.label, value: r.value })),
                           )
                         }
-                        className="group flex items-center justify-between gap-4 rounded-2xl bg-surface-muted px-3.5 py-2.5 text-left transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[var(--shadow-card)]"
+                        className="group flex items-center justify-between gap-4 rounded-lg bg-surface-muted px-3.5 py-2.5 text-left transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[var(--shadow-card)]"
                       >
                         <span className="truncate text-[12.5px] font-medium text-muted-foreground">
                           {s.title}
@@ -1430,13 +1451,13 @@ function HotelWorkspace() {
                 title="Service"
                 subtitle={lifecycle.sub}
                 action={
-                  <Button size="sm" className="rounded-full" onClick={editService}>
+                  <Button size="sm" className="rounded-md" onClick={editService}>
                     <Pencil className="size-3.5" /> Edit
                   </Button>
                 }
               >
                 <div className="grid gap-2">
-                  <div className="flex items-center justify-between gap-3 rounded-2xl bg-surface-muted px-3.5 py-3">
+                  <div className="flex items-center justify-between gap-3 rounded-lg bg-surface-muted px-3.5 py-3">
                     <StatusPill status={lifecycle.status} label={lifecycle.label.toUpperCase()} />
                     <span className="text-[12px] text-muted-foreground">{lifecycle.sub}</span>
                   </div>
@@ -1450,7 +1471,7 @@ function HotelWorkspace() {
                         description: "Opening the transfer workflow.",
                       })
                     }
-                    className="group flex items-center justify-between gap-4 rounded-2xl bg-tint-sand px-3.5 py-3 text-left transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[var(--shadow-card)]"
+                    className="group flex items-center justify-between gap-4 rounded-lg bg-tint-sand px-3.5 py-3 text-left transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[var(--shadow-card)]"
                   >
                     <span className="text-[12.5px] font-medium text-foreground/70">
                       Management company
@@ -1476,7 +1497,7 @@ function HotelWorkspace() {
                     label="Set by"
                     value={`${hotel.service.setBy} · ${hotel.service.setOn}`}
                   />
-                  <div className="rounded-2xl bg-surface-muted px-3.5 py-3">
+                  <div className="rounded-lg bg-surface-muted px-3.5 py-3">
                     <div className="text-[11px] tracking-[0.1em] text-muted-foreground uppercase">
                       Tags
                     </div>
@@ -1484,15 +1505,12 @@ function HotelWorkspace() {
                       {hotel.service.tags.length === 0 ? (
                         <Muted>No tags added yet.</Muted>
                       ) : (
-                        hotel.service.tags.map((t, i) => (
+                        hotel.service.tags.map((t) => (
                           <span
                             key={t}
-                            className={cn(
-                              "inline-flex items-center gap-1 rounded-full px-3 py-1 text-[12px] font-bold",
-                              tintBg[avatarTints[i % avatarTints.length] as Tint],
-                              tintInk[avatarTints[i % avatarTints.length] as Tint],
-                            )}
+                            className="inline-flex items-center gap-1 rounded-md bg-accent px-2.5 py-1 text-[12px] font-semibold text-primary"
                           >
+
                             {t}
                             <button
                               type="button"
@@ -1509,12 +1527,12 @@ function HotelWorkspace() {
                         <PopoverTrigger asChild>
                           <button
                             type="button"
-                            className="inline-flex items-center gap-1 rounded-full border border-dashed border-border px-3 py-1 text-[12px] font-semibold text-muted-foreground hover:text-foreground"
+                            className="inline-flex items-center gap-1 rounded-md border border-dashed border-border px-3 py-1 text-[12px] font-semibold text-muted-foreground hover:text-foreground"
                           >
                             <Plus className="size-3" /> Add tag
                           </button>
                         </PopoverTrigger>
-                        <PopoverContent align="start" className="w-56 space-y-2 rounded-2xl">
+                        <PopoverContent align="start" className="w-56 space-y-2 rounded-lg">
                           <Input
                             value={tagQuery}
                             onChange={(e) => setTagQuery(e.target.value)}
@@ -1548,7 +1566,7 @@ function HotelWorkspace() {
 
           {/* ---------------- links ---------------- */}
           <Section id="links" title="Links & references">
-            <Surface className="rounded-[28px]">
+            <Surface className="rounded-xl">
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
                 {[
                   {

@@ -171,21 +171,21 @@ function Muted({ children }: { children: ReactNode }) {
 type Tint = "sky" | "violet" | "peach" | "mint" | "sand" | "lime";
 
 const tintBg: Record<Tint, string> = {
-  sky: "bg-tint-sky",
-  violet: "bg-tint-violet",
-  peach: "bg-tint-peach",
-  mint: "bg-tint-mint",
-  sand: "bg-tint-sand",
-  lime: "bg-lime/35",
+  sky: "bg-surface",
+  violet: "bg-surface",
+  peach: "bg-surface",
+  mint: "bg-surface",
+  sand: "bg-surface",
+  lime: "bg-surface",
 };
 
 const tintInk: Record<Tint, string> = {
-  sky: "text-ink-sky",
-  violet: "text-ink-violet",
-  peach: "text-ink-peach",
-  mint: "text-ink-mint",
-  sand: "text-foreground",
-  lime: "text-lime-foreground",
+  sky: "text-primary",
+  violet: "text-primary",
+  peach: "text-primary",
+  mint: "text-primary",
+  sand: "text-primary",
+  lime: "text-primary",
 };
 
 function ActionTile({
@@ -205,30 +205,29 @@ function ActionTile({
     <button
       type="button"
       className={cn(
-        "group flex w-full items-center gap-3 rounded-3xl border border-border/50 p-3.5 text-left transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[var(--shadow-float)]",
-        tintBg[tint],
+        "group flex h-full w-full items-center gap-3 rounded-xl border border-border bg-surface p-3 text-left shadow-[var(--shadow-card)] transition-colors duration-200 hover:border-primary/40 hover:bg-accent/60",
         className,
       )}
       {...rest}
     >
       <span
         className={cn(
-          "flex size-11 shrink-0 items-center justify-center rounded-2xl bg-surface shadow-[var(--shadow-card)]",
+          "flex size-9 shrink-0 items-center justify-center rounded-lg bg-accent",
           tintInk[tint],
         )}
       >
-        <Icon className="size-5" />
+        <Icon className="size-4.5" />
       </span>
       <span className="min-w-0 flex-1">
-        <span className="block text-[13.5px] font-bold text-foreground">{title}</span>
-        <span className="block truncate text-[11.5px] text-foreground/60">{desc}</span>
+        <span className="block text-[13px] font-semibold text-foreground">{title}</span>
+        <span className="block truncate text-[11.5px] text-muted-foreground">{desc}</span>
       </span>
-      <ChevronRight className="size-4 shrink-0 text-foreground/40 transition-transform group-hover:translate-x-0.5" />
+      <ChevronRight className="size-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
     </button>
   );
 }
 
-/** Coloured card with a chip-icon header. */
+/** Flat white card with an icon header row. */
 function CardShell({
   icon: Icon,
   title,
@@ -249,33 +248,30 @@ function CardShell({
   return (
     <div
       className={cn(
-        "flex flex-col overflow-hidden rounded-[28px] border border-border/50 p-2 transition-shadow duration-300 hover:shadow-[var(--shadow-float)]",
-        tintBg[tint],
+        "flex h-full flex-col overflow-hidden rounded-xl border border-border bg-surface shadow-[var(--shadow-card)]",
         className,
       )}
     >
-      <div className="flex items-center gap-3 px-3 py-2.5">
+      <div className="flex items-center gap-3 border-b border-border px-4 py-3">
         {Icon ? (
           <span
             className={cn(
-              "flex size-9 shrink-0 items-center justify-center rounded-2xl bg-surface shadow-[var(--shadow-card)]",
+              "flex size-8 shrink-0 items-center justify-center rounded-lg bg-accent",
               tintInk[tint],
             )}
           >
-            <Icon className="size-4.5" />
+            <Icon className="size-4" />
           </span>
         ) : null}
         <div className="min-w-0 flex-1">
-          <div className="truncate text-[14px] font-bold text-foreground">{title}</div>
+          <div className="truncate text-[13.5px] font-semibold text-foreground">{title}</div>
           {subtitle ? (
-            <div className="truncate text-[11.5px] text-foreground/55">{subtitle}</div>
+            <div className="truncate text-[11.5px] text-muted-foreground">{subtitle}</div>
           ) : null}
         </div>
         {action}
       </div>
-      <div className="flex min-h-0 flex-1 flex-col rounded-[22px] bg-surface p-4 shadow-[var(--shadow-card)]">
-        {children}
-      </div>
+      <div className="flex min-h-0 flex-1 flex-col p-4">{children}</div>
     </div>
   );
 }
@@ -292,19 +288,18 @@ function PillRow({
   return (
     <div
       className={cn(
-        "flex items-center justify-between gap-4 rounded-2xl bg-surface-muted px-3.5 py-2.5",
+        "flex items-center justify-between gap-4 rounded-lg border border-border/70 bg-surface-muted px-3 py-2",
         className,
       )}
     >
-      <span className="min-w-0 truncate text-[12.5px] font-medium text-muted-foreground">
-        {label}
-      </span>
-      <span className="flex shrink-0 items-center gap-1.5 text-[13px] font-semibold text-foreground">
+      <span className="min-w-0 truncate text-[12.5px] text-muted-foreground">{label}</span>
+      <span className="flex shrink-0 items-center gap-1.5 text-[12.5px] font-semibold text-foreground">
         {value}
       </span>
     </div>
   );
 }
+
 
 const avatarTints: Tint[] = ["sky", "violet", "peach", "mint", "lime"];
 

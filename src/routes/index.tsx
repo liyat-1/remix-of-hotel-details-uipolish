@@ -1,7 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState, type ReactNode } from "react";
 import {
+  AlertTriangle,
   ArrowUpRight,
+
   Check,
   ChevronRight,
   Copy,
@@ -881,7 +883,7 @@ function HotelWorkspace() {
               ) : null
             }
           >
-            <div className="grid gap-3">
+            <div className="grid items-start gap-3 xl:grid-cols-3">
               {/* hotel health — donut on top, list below */}
               <CardShell
                 icon={Activity}
@@ -940,7 +942,7 @@ function HotelWorkspace() {
                     ))}
                   </div>
 
-                  <div className="grid w-full gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                  <div className="grid w-full gap-2 sm:grid-cols-2 xl:grid-cols-1">
                     {topFeatures.length === 0 ? (
                       <Muted>No feature data yet.</Muted>
                     ) : (
@@ -966,7 +968,8 @@ function HotelWorkspace() {
               </CardShell>
 
               {/* connections + onboarding */}
-              <div className="grid gap-3 lg:grid-cols-2">
+              <div className="grid items-start gap-3 lg:grid-cols-2 xl:contents">
+
                 <CardShell
                   icon={Plug}
                   tint="sky"
@@ -1008,16 +1011,45 @@ function HotelWorkspace() {
                     />
 
                     {hotel.sync.beSync.status !== "healthy" ? (
-                      <div className="rounded-2xl bg-warning-soft p-3.5">
-                        <div className="text-[13px] font-bold text-foreground">
-                          Booking engine is {hotel.sync.beSync.label.toLowerCase()}
+                      <div className="rounded-2xl bg-warning-soft p-4">
+                        <div className="flex items-center gap-2 text-[13.5px] font-bold text-warning">
+                          <AlertTriangle className="size-4 shrink-0" />
+                          BE sync {hotel.sync.beSync.label.toLowerCase()}
                         </div>
-                        <p className="mt-0.5 text-[12.5px] text-foreground/65">
-                          Last successful sync {hotel.sync.lastBeSync}. Conversions and OTA outreach
-                          stay paused until it recovers.
+                        <p className="mt-1.5 text-[12.5px] leading-relaxed text-foreground/65">
+                          Last successful sync: {hotel.sync.lastBeSync.toLowerCase() === "not synced" ? "never" : hotel.sync.lastBeSync}. Bookings and availability are affected.
                         </p>
+                        <Popover onOpenChange={(o) => o && runStatusCheck()}>
+                          <PopoverTrigger asChild>
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              className="mt-3 rounded-xl bg-surface shadow-[var(--shadow-card)]"
+                            >
+                              {checking ? (
+                                <Loader2 className="size-4 animate-spin" />
+                              ) : (
+                                <Stethoscope className="size-4" />
+                              )}
+                              Check status
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent align="start" className="w-72 rounded-2xl">
+                            {checking ? (
+                              <div className="flex items-center gap-2 text-[13px] text-muted-foreground">
+                                <Loader2 className="size-4 animate-spin" /> Checking hotel status…
+                              </div>
+                            ) : (
+                              <StatusDot
+                                status={attention === 0 ? "healthy" : "warning"}
+                                label={checkResult ?? "Ready to check"}
+                              />
+                            )}
+                          </PopoverContent>
+                        </Popover>
                       </div>
                     ) : null}
+
 
                     <div className="mt-auto grid gap-2 pt-2 sm:grid-cols-2">
                       <Popover onOpenChange={(o) => o && runStatusCheck()}>

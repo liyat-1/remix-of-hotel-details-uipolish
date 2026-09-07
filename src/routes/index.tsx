@@ -1126,7 +1126,28 @@ function HotelWorkspace() {
                           }
                         />
                       ))}
+
+                    {(() => {
+                      const steps = hotel.onboarding?.mandatory ?? [];
+                      const done = steps.filter((m) => m.state === "complete").length;
+                      const total = steps.length || 4;
+                      const pct = Math.round((done / total) * 100);
+                      return (
+                        <div className="mt-auto pt-3">
+                          <div className="mb-1.5 flex items-center justify-between text-[11.5px] font-medium text-muted-foreground">
+                            <span>Setup progress</span>
+                            <span className="font-semibold text-foreground">
+                              {done}/{total} complete
+                            </span>
+                          </div>
+                          <div className="h-1.5 w-full overflow-hidden rounded-full bg-accent">
+                            <div className="h-full rounded-full bg-primary" style={{ width: `${pct}%` }} />
+                          </div>
+                        </div>
+                      );
+                    })()}
                   </div>
+
                 </CardShell>
               </div>
             </div>

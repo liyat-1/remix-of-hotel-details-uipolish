@@ -949,7 +949,8 @@ function HotelWorkspace() {
 
                   <Button
                     variant="outline"
-                    className="w-full rounded-lg"
+                    className="mt-auto w-full rounded-lg"
+
                     onClick={() => setDetail("features")}
                   >
                     View all feature statuses

@@ -10,3 +10,6 @@
 - [x] Verify the MarinaView-matched desktop and mobile layouts.
 - [x] Make quick actions its own first section, move check hotel status into Connections.
 - [x] Redesign every grouped card with color, avatars and a livelier SaaS feel.
+- [x] Add alert-style BE sync banner with Check status action.
+- [x] Restore a visible account status controller (Active, Onboarding, etc.).
+- [x] Place Hotel health, Connections and Onboarding side by side.

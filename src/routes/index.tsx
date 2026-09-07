@@ -1128,8 +1128,16 @@ function HotelWorkspace() {
                       ))}
 
                     {(() => {
-                      const steps = hotel.onboarding?.mandatory ?? [];
+                      const steps =
+                        hotel.onboarding?.mandatory ??
+                        [
+                          { label: "Campaign registry", state: "complete" as const },
+                          { label: "PMS sync", state: "action" as const },
+                          { label: "BE sync", state: "action" as const },
+                          { label: "Proxy", state: "complete" as const },
+                        ];
                       const done = steps.filter((m) => m.state === "complete").length;
+
                       const total = steps.length || 4;
                       const pct = Math.round((done / total) * 100);
                       return (

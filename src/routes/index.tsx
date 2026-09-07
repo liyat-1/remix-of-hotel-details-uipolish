@@ -312,21 +312,17 @@ function initials(name: string) {
     .join("");
 }
 
-function Avatar({ name, index, size = 44 }: { name: string; index: number; size?: number }) {
-  const tint = avatarTints[index % avatarTints.length] as Tint;
+function Avatar({ name, size = 36 }: { name: string; index?: number; size?: number }) {
   return (
     <span
       style={{ width: size, height: size }}
-      className={cn(
-        "flex shrink-0 items-center justify-center rounded-2xl text-[13px] font-bold",
-        tintBg[tint],
-        tintInk[tint],
-      )}
+      className="flex shrink-0 items-center justify-center rounded-lg bg-accent text-[12px] font-semibold text-primary"
     >
       {initials(name)}
     </span>
   );
 }
+
 
 function countBy(groups: { features: { status: Health }[] }[]) {
   const c = { healthy: 0, warning: 0, failed: 0, neutral: 0 };

@@ -1475,15 +1475,12 @@ function HotelWorkspace() {
                       {hotel.service.tags.length === 0 ? (
                         <Muted>No tags added yet.</Muted>
                       ) : (
-                        hotel.service.tags.map((t, i) => (
+                        hotel.service.tags.map((t) => (
                           <span
                             key={t}
-                            className={cn(
-                              "inline-flex items-center gap-1 rounded-full px-3 py-1 text-[12px] font-bold",
-                              tintBg[avatarTints[i % avatarTints.length] as Tint],
-                              tintInk[avatarTints[i % avatarTints.length] as Tint],
-                            )}
+                            className="inline-flex items-center gap-1 rounded-md bg-accent px-2.5 py-1 text-[12px] font-semibold text-primary"
                           >
+
                             {t}
                             <button
                               type="button"

@@ -887,9 +887,9 @@ function HotelWorkspace() {
                   </span>
                 }
               >
-                <div className="flex flex-col items-center gap-5 py-1">
+                <div className="flex h-full flex-col items-center gap-4">
                   <div
-                    className="grid size-[132px] shrink-0 place-items-center rounded-full p-3"
+                    className="grid size-[112px] shrink-0 place-items-center rounded-full p-3"
                     style={{
                       background: `conic-gradient(var(--color-success) 0 ${
                         (hotel.health.healthy / Math.max(hotel.health.total, 1)) * 100

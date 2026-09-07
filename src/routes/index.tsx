@@ -301,7 +301,7 @@ function PillRow({
 }
 
 
-const avatarTints: Tint[] = ["sky", "violet", "peach", "mint", "lime"];
+
 
 function initials(name: string) {
   return name
